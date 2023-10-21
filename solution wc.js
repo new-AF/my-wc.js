@@ -33,6 +33,9 @@ function getFileName() {
     }
 }
 
-const text = fs.readFileSync(fileName);
+const buffer = fs.readFileSync(fileName, null);
 
-console.log({ args, cliOptions, fileName, "text length": text.length });
+console.log(
+    { args, cliOptions, fileName, "buffer length": buffer.length },
+    buffer instanceof Buffer
+);
