@@ -35,8 +35,23 @@ function getFileName() {
 
 const buffer = fs.readFileSync(fileName, null);
 
+let text;
+
+function initText() {
+    text = buffer.toString("utf8");
+}
+
 function getByteCount() {
     return buffer.length;
+}
+
+function getLineCount() {
+    if (text === undefined) {
+        initText();
+    }
+    const matches = text.match(/\n/g);
+    /* matches.length + 1 ? */
+    return matches === null ? 0 : matches.length;
 }
 
 console.log({
@@ -45,4 +60,5 @@ console.log({
     fileName,
     "buffer instanceof Buffer": buffer instanceof Buffer,
     "buffer length": getByteCount(),
+    "line count": getLineCount(),
 });
