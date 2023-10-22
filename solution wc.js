@@ -56,7 +56,11 @@ function getLineCount() {
     return matches === null ? 0 : matches.length;
 }
 
-function getWordCount() {}
+function getWordCount() {
+    initText();
+
+    const matches = text.match(/.+/g);
+}
 
 console.log({
     args,
@@ -65,4 +69,5 @@ console.log({
     "buffer instanceof Buffer": buffer instanceof Buffer,
     "buffer length": getByteCount(),
     "line count": getLineCount(),
+    "word count": getWordCount(),
 });
