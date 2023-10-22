@@ -39,7 +39,10 @@ function getByteCount() {
     return buffer.length;
 }
 
-console.log(
-    { args, cliOptions, fileName, "buffer length": getByteCount() },
-    buffer instanceof Buffer
-);
+console.log({
+    args,
+    cliOptions,
+    fileName,
+    "buffer instanceof Buffer": buffer instanceof Buffer,
+    "buffer length": getByteCount(),
+});
