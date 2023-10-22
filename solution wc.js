@@ -38,6 +38,9 @@ const buffer = fs.readFileSync(fileName, null);
 let text;
 
 function initText() {
+    if (text !== undefined) {
+        return;
+    }
     text = buffer.toString("utf8");
 }
 
@@ -46,13 +49,14 @@ function getByteCount() {
 }
 
 function getLineCount() {
-    if (text === undefined) {
-        initText();
-    }
+    initText();
+
     const matches = text.match(/\n/g);
     /* matches.length + 1 ? */
     return matches === null ? 0 : matches.length;
 }
+
+function getWordCount() {}
 
 console.log({
     args,
