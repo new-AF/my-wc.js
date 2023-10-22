@@ -35,7 +35,11 @@ function getFileName() {
 
 const buffer = fs.readFileSync(fileName, null);
 
+function getByteCount() {
+    return buffer.length;
+}
+
 console.log(
-    { args, cliOptions, fileName, "buffer length": buffer.length },
+    { args, cliOptions, fileName, "buffer length": getByteCount() },
     buffer instanceof Buffer
 );
