@@ -59,7 +59,8 @@ function getLineCount() {
 function getWordCount() {
     initText();
 
-    const matches = text.match(/.+/g);
+    const matches = text.match(/\S+/g);
+    return matches === null ? 0 : matches.length;
 }
 
 console.log({
