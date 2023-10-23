@@ -59,7 +59,16 @@ function getLineCount() {
 function getWordCount() {
     initText();
 
+    /* any sequence of non-whitespace characters */
     const matches = text.match(/\S+/g);
+    return matches === null ? 0 : matches.length;
+}
+
+function getMultibyteCharacterCount() {
+    initText();
+
+    /* all non-byte characters */
+    const matches = text.match(/[\u0000-\uffff]/g);
     return matches === null ? 0 : matches.length;
 }
 
@@ -71,4 +80,5 @@ console.log({
     "buffer length": getByteCount(),
     "line count": getLineCount(),
     "word count": getWordCount(),
+    "non-byte characters": getMultibyteCharacterCount(),
 });
