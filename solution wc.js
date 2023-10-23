@@ -67,7 +67,7 @@ function getWordCount() {
 function getMultibyteCharacterCount() {
     initText();
 
-    /* all non-byte characters */
+    /* (not all) multibyte characters */
     const matches = text.match(/[\u0000-\uffff]/g);
     return matches === null ? 0 : matches.length;
 }
