@@ -11,6 +11,26 @@ const fs = require("fs");
 */
 const args = process.argv;
 const argsLength = args.length;
+
+function printHelp() {
+    console.log(`
+Usage for wc this whitespace utility
+
+${args[0]} ${args[1]} OPTIONS FILE
+
+OPTIONS, one or more of following:
+
+-c      to output number of bytes in file
+-l      to output number of lines in file
+-w      to output number of words in file
+`);
+}
+
+if (args.length === 2) {
+    printHelp();
+    process.exit(1);
+}
+
 const [cliOptions, fileName] = [getCliOptions(), getFileName()];
 
 function getCliOptions() {
