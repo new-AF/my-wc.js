@@ -20,9 +20,13 @@ ${args[0]} ${args[1]} OPTIONS FILE
 
 OPTIONS, one or more of following:
 
--c      to output number of bytes in file
--l      to output number of lines in file
--w      to output number of words in file
+-c      to output number of bytes in FILE
+-l      to output number of lines in FILE
+-w      to output number of words in FILE
+-m      formally to output number of multibyte
+        characters in FILE,
+        however in practice it outputs number of
+        \\u0000-\\ffff unicode characters in FILE
 `);
 }
 
