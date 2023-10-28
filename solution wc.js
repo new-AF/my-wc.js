@@ -65,7 +65,7 @@ if (argsLength === 3) {
 const buffer = fs.readFileSync(fileName, null);
 
 function initText() {
-    if (text !== undefined) {
+    if (!(text === undefined)) {
         return;
     }
     text = buffer.toString("utf8");
@@ -101,7 +101,7 @@ function getMultibyteCharacterCount() {
 
 console.log({
     args,
-    cliOptions,
+    options,
     fileName,
     "buffer instanceof Buffer": buffer instanceof Buffer,
     "buffer length": getByteCount(),
