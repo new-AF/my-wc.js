@@ -11,10 +11,15 @@ const fs = require("fs");
 */
 const args = process.argv;
 const argsLength = args.length;
+let options;
+let fileName;
+let text;
 
 function printHelp() {
     console.log(`
-Usage for wc this whitespace utility
+My wc whitespace utility
+
+Usage: 
 
 ${args[0]} ${args[1]} OPTIONS FILE
 
@@ -26,40 +31,38 @@ OPTIONS, one or more of following:
 -m      formally to output number of multibyte
         characters in FILE,
         however in practice it outputs number of
-        \\u0000-\\ffff unicode characters in FILE
+        \\u0000-\\uFFFF unicode characters in FILE
 `);
 }
-
-if (args.length === 2) {
+/* deterome hoe to parse arguments */
+if (argsLength < 2) {
+    console.log(`System Error related to handling command line arguments,
+length of arguments should be at least 2,
+however currnet arguments length is {argsLength}
+process.argv = {args}`);
+    process.exit(1);
+}
+/* no file name */
+if (argsLength === 2) {
     printHelp();
     process.exit(1);
 }
 
-const [cliOptions, fileName] = [getCliOptions(), getFileName()];
+/* file name available */
+if (argsLength === 3) {
+    /* the last argument is the file name */
+    fileName = args.at(-1);
+} else if (argsLength >= 4) {
+    /* file name and other options available */
+    /* ignore 1st and 2nd arguments;
+    3rd - (last - 1) are OPTIONS
+    last is file name */
 
-function getCliOptions() {
-    if (argsLength <= 3) {
-        return "";
-    }
-    /* 4 elements or more */
-    return args[2];
-}
-
-function getFileName() {
-    switch (argsLength) {
-        case 0:
-        case 1:
-        case 2:
-            return "";
-        /* 3 elements or more */
-        default:
-            return args.at(-1);
-    }
+    fileName = args.at(-1);
+    options = args.slice(2, -1);
 }
 
 const buffer = fs.readFileSync(fileName, null);
-
-let text;
 
 function initText() {
     if (text !== undefined) {
