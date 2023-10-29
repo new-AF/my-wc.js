@@ -9,6 +9,7 @@ const fs = require("fs");
 2 - optional command line arguments
 3 - optional file name
 */
+const log = console.log;
 const args = process.argv;
 const argsLength = args.length;
 let options;
@@ -17,7 +18,7 @@ let text;
 let buffer;
 
 function printHelp() {
-    console.log(`
+    log(`
 My wc whitespace utility
 
 Usage: 
@@ -87,7 +88,7 @@ function getMultibyteCharacterCount() {
 /* parse cli arguments.
 system error */
 if (argsLength < 2) {
-    console.log(`System Error related to handling command line arguments,
+    log(`System Error related to handling command line arguments,
 length of arguments should be at least 2,
 however currnet arguments length is {argsLength},
 process.argv = {args}`);
@@ -99,10 +100,13 @@ if (argsLength === 2) {
     process.exit(0);
 }
 
-/* file name available */
+/* file name available; but empty options */
 if (argsLength === 3) {
     /* the last argument is the file name */
     fileName = args.at(-1);
+
+    /* when options is empty; run all of them */
+    options = ["-c", "-l", "-w", "-m"];
 } else if (argsLength >= 4) {
     /* file name and other options available */
     /* ignore 1st and 2nd arguments;
@@ -110,17 +114,27 @@ if (argsLength === 3) {
     last is file name */
 
     fileName = args.at(-1);
-    options = args.slice(2, -1).map((str) => str.toLowerCase());
+    options = args.slice(2, -1);
 }
 
-console.log({
+/* convert all options to lower case */
+options = options.map((str) => str.toLowerCase());
+
+log({
     args,
     options,
     fileName,
     "buffer instanceof Buffer": buffer instanceof Buffer,
-
-    "buffer length": getByteCount(),
-    "line count": getLineCount(),
-    "word count": getWordCount(),
-    "non-byte characters": getMultibyteCharacterCount(),
 });
+if (options.includes("-c")) {
+    log("bytes count:", getByteCount());
+}
+if (options.includes("-l")) {
+    log("line count:", getLineCount());
+}
+if (options.includes("-w")) {
+    log("word count:", getWordCount());
+}
+if (options.includes("-m")) {
+    log("non-byte characters:", getMultibyteCharacterCount());
+}
