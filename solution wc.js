@@ -49,8 +49,22 @@ FILE, can be either
         full file path
 
 2023 Abdullah Fatota
---end of help--
+
+-- end of help --
 `);
+}
+
+function printDebug() {
+    log(`== debug information ==
+    ${{
+        args,
+        options,
+        fileName,
+        "buffer instanceof Buffer": buffer instanceof Buffer,
+    }}
+
+-- end of debug information --
+    `);
 }
 
 /* open file as binary sequence */
@@ -135,15 +149,7 @@ if (options.includes("-help")) {
     printHelp();
 }
 if (options.includes("-debug")) {
-    log("== debug information ==");
-    log({
-        args,
-        options,
-        fileName,
-        "buffer instanceof Buffer": buffer instanceof Buffer,
-    });
-    log("--end of debug info--");
-    log();
+    printDebug();
     options = options.concat(["-c", "-l", "-w", "-m"]);
 }
 if (options.includes("-c")) {
