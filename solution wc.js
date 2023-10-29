@@ -110,7 +110,7 @@ if (argsLength === 3) {
     last is file name */
 
     fileName = args.at(-1);
-    options = args.slice(2, -1);
+    options = args.slice(2, -1).map((str) => str.toLowerCase());
 }
 
 console.log({
@@ -118,6 +118,7 @@ console.log({
     options,
     fileName,
     "buffer instanceof Buffer": buffer instanceof Buffer,
+
     "buffer length": getByteCount(),
     "line count": getLineCount(),
     "word count": getWordCount(),
