@@ -107,32 +107,6 @@ if (argsLength === 2) {
     exit(ERROR_EXIT);
 }
 
-/* file name available; but empty options */
-if (argsLength === 3) {
-    /* last argument is the file name */
-    fileName = args.at(-1);
-    userOptions = [
-        OPTIONS.help,
-        OPTIONS.debug,
-        OPTIONS.byte,
-        OPTIONS.line,
-        OPTIONS.word,
-        OPTIONS["multi-byte"],
-    ];
-} else if (argsLength >= 4) {
-    /* 3rd to (last - 1) elements are OPTIONS
-    last is file name */
-
-    fileName = args.at(-1);
-    userOptions = args.slice(2, -1);
-
-    /* convert all user options to lower case */
-    userOptions = userOptions.map((str) => str.toLowerCase());
-
-    /* ignore whitespace sequences */
-    userOptions = userOptions.filter((str) => /\s+/.test(str) === false);
-}
-
 /* open file as binary sequence */
 function initBuffer() {
     if (!(buffer === undefined)) {
@@ -183,10 +157,79 @@ function getMultibyteCharacterCount() {
     return matches === null ? 0 : matches.length;
 }
 
-/* parse user options */
+/* file name available; but empty userOptions */
+if (argsLength === 3) {
+    /* last argument is the file name */
+    fileName = args.at(-1);
+    userOptions = [
+        OPTIONS.help,
+        OPTIONS.debug,
+        OPTIONS.byte,
+        OPTIONS.line,
+        OPTIONS.word,
+        OPTIONS["multi-byte"],
+    ];
+} else if (argsLength >= 4) {
+    /* 3rd to (last - 1) elements are OPTIONS
+    last is file name */
 
-/* no file name */
-if (argsLength === 2) {
+    fileName = args.at(-1);
+    userOptions = args.slice(2, -1);
+
+    /* convert all user userOptions to lower case */
+    userOptions = userOptions.map((str) => str.toLowerCase());
+
+    /* ignore whitespace sequences */
+    userOptions = userOptions.filter((str) => /\s+/.test(str) === false);
+}
+
+/* start printing stuff per userOptions */
+
+/* print help */
+if (userOptions.includes("-help")) {
     printHelp();
-    exit(ERROR_EXIT);
+}
+
+/* print debug info */
+if (userOptions.includes("-debug")) {
+    printDebug();
+    userOptions = userOptions.concat([
+        OPTIONS.byte,
+        OPTIONS.line,
+        OPTIONS.word,
+        OPTIONS["multi-byte"],
+    ]);
+}
+
+/* print file name */
+if (
+    userOptions.includes(OPTIONS.byte) ||
+    userOptions.includes(OPTIONS.line) ||
+    userOptions.includes(OPTIONS.word) ||
+    userOptions.includes(OPTIONS["multi-byte"])
+) {
+    log(
+        "File target:",
+        fileName.includes(SPACE) ? enclose(fileName) : fileName
+    );
+    log();
+}
+
+if (userOptions.includes(OPTIONS.byte)) {
+    log(`(${OPTIONS.byte}) byte count:`, formatNumber(getByteCount()));
+}
+
+if (userOptions.includes(OPTIONS.line)) {
+    log(`(${OPTIONS.line}) line count:`, formatNumber(getLineCount()));
+}
+
+if (userOptions.includes(OPTIONS.word)) {
+    log(`(${OPTIONS.word}) word count:`, formatNumber(getWordCount()));
+}
+
+if (userOptions.includes(OPTIONS["multi-byte"])) {
+    log(
+        `(${OPTIONS["multi-byte"]}) multi-byte characters:`,
+        formatNumber(getMultibyteCharacterCount())
+    );
 }
