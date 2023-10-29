@@ -29,10 +29,8 @@ NON_MANDATORY_OPTIONS, one or more of following:
 -c      to output number of bytes in FILE
 -l      to output number of lines in FILE
 -w      to output number of words in FILE
--m      formally to output number of multibyte
-        characters in FILE,
-        however in practice it outputs number of
-        \\u0000-\\uFFFF unicode characters in FILE
+-m      to outputs number of \\u0000-\\uFFFF
+        unicode characters in FILE
 `);
 }
 
