@@ -132,3 +132,20 @@ if (argsLength === 3) {
     /* ignore whitespace sequences */
     userOptions = userOptions.filter((str) => /\s+/.test(str) === false);
 }
+
+/* open file as binary sequence */
+function initBuffer() {
+    if (!(buffer === undefined)) {
+        return;
+    }
+    buffer = fs.readFileSync(fileName, null);
+}
+
+/* convert buffer to text */
+function initText() {
+    if (!(text === undefined)) {
+        return;
+    }
+    initBuffer();
+    text = buffer.toString("utf8");
+}
