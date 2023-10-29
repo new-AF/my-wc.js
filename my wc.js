@@ -192,13 +192,13 @@ if (userOptions.includes("-help")) {
 
 /* print debug info */
 if (userOptions.includes("-debug")) {
-    printDebug();
     userOptions = userOptions.concat([
         OPTIONS.byte,
         OPTIONS.line,
         OPTIONS.word,
         OPTIONS["multi-byte"],
     ]);
+    printDebug();
 }
 
 /* print file name */
