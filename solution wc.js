@@ -39,13 +39,13 @@ function enclose(str) {
 function printHelp() {
     const [program, script] = args;
 
-    log(`*** My wc whitespace utility help ***
+    log(`*** help ***
 
 Usage:
 
 ${program.includes(SPACE) ? enclose(program) : program} ${
         script.includes(SPACE) ? enclose(script) : script
-    } NON_MANDATORY_OPTIONS FILE
+    } NON_MANDATORY_OPTIONS     FILE
 
 NON_MANDATORY_OPTIONS, one or more of following:
 ${OPTIONS["byte"]}      to output number of bytes in FILE
