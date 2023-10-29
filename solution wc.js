@@ -18,12 +18,20 @@ let text;
 let buffer;
 
 function printHelp() {
-    log(`== help ==
-My wc whitespace utility
+    const [program, script] = args;
+    const space = " ";
 
-Usage: 
+    function enclose(str) {
+        return '"' + str + '"';
+    }
 
-${args[0]} ${args[1]} NON_MANDATORY_OPTIONS FILE
+    log(`== My wc whitespace utility help ==
+
+Usage:
+
+${program.includes(space) ? enclose(program) : program} ${
+        script.includes(space) ? enclose(script) : script
+    } NON_MANDATORY_OPTIONS FILE
 
 NON_MANDATORY_OPTIONS, one or more of following:
 
@@ -33,12 +41,16 @@ NON_MANDATORY_OPTIONS, one or more of following:
 -m      to outputs number of \\u0000-\\uFFFF
         unicode characters in FILE
 -debug  to outuput developmmnt debug information
+-help   to print this help information
 
 FILE, can be either
 
 local file name or,
 full file path
-====`);
+
+2023 Abdullah Fatota
+--end of help--
+`);
 }
 
 /* open file as binary sequence */
@@ -130,7 +142,8 @@ if (options.includes("-debug")) {
         fileName,
         "buffer instanceof Buffer": buffer instanceof Buffer,
     });
-    log("====");
+    log("--end of debug info--");
+    log();
     options = options.concat(["-c", "-l", "-w", "-m"]);
 }
 if (options.includes("-c")) {
