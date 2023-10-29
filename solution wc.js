@@ -31,6 +31,11 @@ NON_MANDATORY_OPTIONS, one or more of following:
 -w      to output number of words in FILE
 -m      to outputs number of \\u0000-\\uFFFF
         unicode characters in FILE
+
+FILE, can be either
+
+local file name or,
+full file path
 `);
 }
 
