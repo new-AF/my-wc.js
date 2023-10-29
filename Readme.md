@@ -9,9 +9,7 @@ This is a JavaScript solution to [John Crickett's Coding Challenges series](http
 # Usage
 
 ```
-Usage:
-
-"C:\Program Files\nodejs\node.exe" "my wc.js" NON_MANDATORY_OPTIONS FILE
+> "C:\Program Files\nodejs\node.exe" "my wc.js" NON_MANDATORY_OPTIONS FILE
 
 NON_MANDATORY_OPTIONS, one or more of following:
 -c      to output number of bytes in FILE
