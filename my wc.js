@@ -9,8 +9,8 @@ const log = console.log;
 /*
 0 - node executable
 1 - current file
-2 - optional command line arguments
-3 - optional file name
+2 - ... optional command line arguments
+last - optional file name
 */
 const args = process.argv;
 const argsLength = args.length;
