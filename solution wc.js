@@ -14,6 +14,7 @@ const argsLength = args.length;
 let options;
 let fileName;
 let text;
+let buffer;
 
 function printHelp() {
     console.log(`
@@ -21,9 +22,9 @@ My wc whitespace utility
 
 Usage: 
 
-${args[0]} ${args[1]} OPTIONS FILE
+${args[0]} ${args[1]} NON_MANDATORY_OPTIONS FILE
 
-OPTIONS, one or more of following:
+NON_MANDATORY_OPTIONS, one or more of following:
 
 -c      to output number of bytes in FILE
 -l      to output number of lines in FILE
@@ -34,44 +35,25 @@ OPTIONS, one or more of following:
         \\u0000-\\uFFFF unicode characters in FILE
 `);
 }
-/* deterome hoe to parse arguments */
-if (argsLength < 2) {
-    console.log(`System Error related to handling command line arguments,
-length of arguments should be at least 2,
-however currnet arguments length is {argsLength}
-process.argv = {args}`);
-    process.exit(1);
+
+/* open file as binary sequence */
+function initBuffer() {
+    if (!(buffer === undefined)) {
+        return;
+    }
+    buffer = fs.readFileSync(fileName, null);
 }
-/* no file name */
-if (argsLength === 2) {
-    printHelp();
-    process.exit(1);
-}
-
-/* file name available */
-if (argsLength === 3) {
-    /* the last argument is the file name */
-    fileName = args.at(-1);
-} else if (argsLength >= 4) {
-    /* file name and other options available */
-    /* ignore 1st and 2nd arguments;
-    3rd - (last - 1) are OPTIONS
-    last is file name */
-
-    fileName = args.at(-1);
-    options = args.slice(2, -1);
-}
-
-const buffer = fs.readFileSync(fileName, null);
-
+/* convert buffer to text */
 function initText() {
     if (!(text === undefined)) {
         return;
     }
+    initBuffer();
     text = buffer.toString("utf8");
 }
-
+/*  */
 function getByteCount() {
+    initBuffer();
     return buffer.length;
 }
 
@@ -97,6 +79,35 @@ function getMultibyteCharacterCount() {
     /* (not all) multibyte characters */
     const matches = text.match(/[\u0000-\uffff]/g);
     return matches === null ? 0 : matches.length;
+}
+
+/* parse cli arguments.
+system error */
+if (argsLength < 2) {
+    console.log(`System Error related to handling command line arguments,
+length of arguments should be at least 2,
+however currnet arguments length is {argsLength}
+process.argv = {args}`);
+    process.exit(1);
+}
+/* no file name */
+if (argsLength === 2) {
+    printHelp();
+    process.exit(1);
+}
+
+/* file name available */
+if (argsLength === 3) {
+    /* the last argument is the file name */
+    fileName = args.at(-1);
+} else if (argsLength >= 4) {
+    /* file name and other options available */
+    /* ignore 1st and 2nd arguments;
+    3rd - (last - 1) are OPTIONS
+    last is file name */
+
+    fileName = args.at(-1);
+    options = args.slice(2, -1);
 }
 
 console.log({
