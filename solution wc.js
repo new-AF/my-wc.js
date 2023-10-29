@@ -127,14 +127,14 @@ log({
     "buffer instanceof Buffer": buffer instanceof Buffer,
 });
 if (options.includes("-c")) {
-    log("bytes count:", getByteCount());
+    log("(-c) byte count:", getByteCount());
 }
 if (options.includes("-l")) {
-    log("line count:", getLineCount());
+    log("(-l) line count:", getLineCount());
 }
 if (options.includes("-w")) {
-    log("word count:", getWordCount());
+    log("(-w) word count:", getWordCount());
 }
 if (options.includes("-m")) {
-    log("non-byte characters:", getMultibyteCharacterCount());
+    log("(-m) multi-byte characters:", getMultibyteCharacterCount());
 }
