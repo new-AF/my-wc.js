@@ -233,3 +233,4 @@ if (userOptions.includes(OPTIONS["multi-byte"])) {
         formatNumber(getMultibyteCharacterCount())
     );
 }
+exit(OK_EXIT);
