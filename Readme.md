@@ -1,4 +1,4 @@
-# `my wc.js` a JavaScript version of `wc`
+# `my wc.js` - a JavaScript version of `wc`
 
 This is a JavaScript solution to [John Crickett's Coding Challenges series](https://codingchallenges.fyi/challenges/challenge-wc/).
 
