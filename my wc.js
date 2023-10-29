@@ -57,7 +57,7 @@ ${OPTIONS["word"]}      to output number of words in FILE
 ${OPTIONS["multi-byte"]}      to outputs number of \\u0000-\\uFFFF
         unicode characters in FILE
 ${OPTIONS["debug"]}  to outuput developmmnt debug information
-${userOptions["help"]}   to print this help information
+${OPTIONS["help"]}   to print this help information
 
 FILE, can be either
 
@@ -96,3 +96,9 @@ log();
 log("My wc (word count among other things) utility");
 log("by Abdullah Fatota - 2023");
 log();
+
+/* no file name */
+if (argsLength === 2) {
+    printHelp();
+    process.exit(ERROR_EXIT);
+}
