@@ -1,9 +1,10 @@
-/* solution wc (word count) */
-/* read file */
+/*
+solution wc (word count) 
+Abdullah Fatota
+*/
+
 const fs = require("fs");
-// import fs from "fs";
-// const text=fs.readFileSync('./te')
-/* array
+/*
 0 - node executable
 1 - current file
 2 - optional command line arguments
@@ -45,8 +46,8 @@ NON_MANDATORY_OPTIONS, one or more of following:
 
 FILE, can be either
 
-        local file name or,
-        full file path
+        a local file name or,
+        a full file path
 
 2023 Abdullah Fatota
 
@@ -112,8 +113,8 @@ function getMultibyteCharacterCount() {
     return matches === null ? 0 : matches.length;
 }
 
-/* parse cli arguments.
-system error */
+/* parse cli arguments */
+/* system error */
 if (argsLength < 2) {
     log(`System Error related to handling command line arguments,
 length of arguments should be at least 2,
@@ -121,6 +122,7 @@ however currnet arguments length is {argsLength},
 process.argv = {args}`);
     process.exit(1);
 }
+
 /* no file name */
 if (argsLength === 2) {
     printHelp();
@@ -148,19 +150,24 @@ options = options.map((str) => str.toLowerCase());
 if (options.includes("-help")) {
     printHelp();
 }
+
 if (options.includes("-debug")) {
     printDebug();
     options = options.concat(["-c", "-l", "-w", "-m"]);
 }
+
 if (options.includes("-c")) {
     log("(-c) byte count:", getByteCount());
 }
+
 if (options.includes("-l")) {
     log("(-l) line count:", getLineCount());
 }
+
 if (options.includes("-w")) {
     log("(-w) word count:", getWordCount());
 }
+
 if (options.includes("-m")) {
     log("(-m) multi-byte characters:", getMultibyteCharacterCount());
 }
