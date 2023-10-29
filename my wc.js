@@ -4,13 +4,14 @@ Abdullah Fatota
 */
 
 const fs = require("fs");
+
+const log = console.log;
 /*
 0 - node executable
 1 - current file
 2 - optional command line arguments
 3 - optional file name
 */
-const log = console.log;
 const args = process.argv;
 const argsLength = args.length;
 let options;
@@ -39,7 +40,7 @@ function enclose(str) {
 function printHelp() {
     const [program, script] = args;
 
-    log(`*** My wc whitespace utility help ***
+    log(`*** help ***
 
 Usage:
 
@@ -60,8 +61,6 @@ FILE, can be either
 
         a local file name or,
         a full file path
-
-2023 Abdullah Fatota
 
 == end of help ==
 `);
