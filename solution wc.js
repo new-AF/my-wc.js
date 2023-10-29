@@ -32,6 +32,7 @@ NON_MANDATORY_OPTIONS, one or more of following:
 -w      to output number of words in FILE
 -m      to outputs number of \\u0000-\\uFFFF
         unicode characters in FILE
+-debug  to outuput developmmnt debug information
 
 FILE, can be either
 
@@ -120,12 +121,16 @@ if (argsLength === 3) {
 /* convert all options to lower case */
 options = options.map((str) => str.toLowerCase());
 
-log({
-    args,
-    options,
-    fileName,
-    "buffer instanceof Buffer": buffer instanceof Buffer,
-});
+if (options.includes("-debug")) {
+    log("== debug information ==");
+    log({
+        args,
+        options,
+        fileName,
+        "buffer instanceof Buffer": buffer instanceof Buffer,
+    });
+    log("====");
+}
 if (options.includes("-c")) {
     log("(-c) byte count:", getByteCount());
 }
