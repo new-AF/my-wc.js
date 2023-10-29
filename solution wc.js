@@ -45,8 +45,8 @@ NON_MANDATORY_OPTIONS, one or more of following:
 
 FILE, can be either
 
-local file name or,
-full file path
+        local file name or,
+        full file path
 
 2023 Abdullah Fatota
 --end of help--
