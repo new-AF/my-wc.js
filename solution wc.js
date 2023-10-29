@@ -25,7 +25,7 @@ function printHelp() {
         return '"' + str + '"';
     }
 
-    log(`== My wc whitespace utility help ==
+    log(`*** My wc whitespace utility help ***
 
 Usage:
 
@@ -50,20 +50,20 @@ FILE, can be either
 
 2023 Abdullah Fatota
 
--- end of help --
+== end of help ==
 `);
 }
 
 function printDebug() {
-    log(`== debug information ==
-    ${{
+    log(`*** debug information ***`);
+    log({
         args,
         options,
         fileName,
         "buffer instanceof Buffer": buffer instanceof Buffer,
-    }}
-
--- end of debug information --
+    });
+    log(`
+== end of debug information ==
     `);
 }
 
