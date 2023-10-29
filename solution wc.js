@@ -17,6 +17,7 @@ let options;
 let fileName;
 let text;
 let buffer;
+const formatter = new Intl.NumberFormat();
 const SPACE = " ";
 const OPTIONS = {
     byte: "-c",
@@ -26,6 +27,10 @@ const OPTIONS = {
     debug: "-debug",
     help: "-help",
 };
+
+function formatNumber(val) {
+    return formatter.format(val);
+}
 
 function enclose(str) {
     return '"' + str + '"';
@@ -187,20 +192,20 @@ if (
 }
 
 if (options.includes(OPTIONS.byte)) {
-    log(`(${OPTIONS.byte}) byte count:`, getByteCount());
+    log(`(${OPTIONS.byte}) byte count:`, formatNumber(getByteCount()));
 }
 
 if (options.includes(OPTIONS.line)) {
-    log(`(${OPTIONS.line}) line count:`, getLineCount());
+    log(`(${OPTIONS.line}) line count:`, formatNumber(getLineCount()));
 }
 
 if (options.includes(OPTIONS.word)) {
-    log(`(${OPTIONS.word}) word count:`, getWordCount());
+    log(`(${OPTIONS.word}) word count:`, formatNumber(getWordCount()));
 }
 
 if (options.includes(OPTIONS["multi-byte"])) {
     log(
         `(${OPTIONS["multi-byte"]}) multi-byte characters:`,
-        getMultibyteCharacterCount()
+        formatNumber(getMultibyteCharacterCount())
     );
 }
