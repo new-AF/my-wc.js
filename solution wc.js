@@ -183,6 +183,7 @@ if (
     options.includes(OPTIONS["multi-byte"])
 ) {
     log(fileName.includes(SPACE) ? enclose(fileName) : fileName);
+    log();
 }
 
 if (options.includes(OPTIONS.byte)) {
