@@ -18,7 +18,7 @@ let text;
 let buffer;
 
 function printHelp() {
-    log(`
+    log(`== help ==
 My wc whitespace utility
 
 Usage: 
@@ -38,7 +38,7 @@ FILE, can be either
 
 local file name or,
 full file path
-`);
+====`);
 }
 
 /* open file as binary sequence */
@@ -105,8 +105,6 @@ if (argsLength === 2) {
 if (argsLength === 3) {
     /* the last argument is the file name */
     fileName = args.at(-1);
-
-    /* when options is empty; run all of them */
     options = ["-c", "-l", "-w", "-m"];
 } else if (argsLength >= 4) {
     /* file name and other options available */
@@ -121,6 +119,9 @@ if (argsLength === 3) {
 /* convert all options to lower case */
 options = options.map((str) => str.toLowerCase());
 
+if (options.includes("-help")) {
+    printHelp();
+}
 if (options.includes("-debug")) {
     log("== debug information ==");
     log({
@@ -130,6 +131,7 @@ if (options.includes("-debug")) {
         "buffer instanceof Buffer": buffer instanceof Buffer,
     });
     log("====");
+    options = options.concat(["-c", "-l", "-w", "-m"]);
 }
 if (options.includes("-c")) {
     log("(-c) byte count:", getByteCount());
