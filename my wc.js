@@ -31,6 +31,10 @@ const OPTIONS = {
 const OK_EXIT = 0;
 const ERROR_EXIT = 1;
 
+function exit(status) {
+    process.exit(status);
+}
+
 function formatNumber(val) {
     return formatter.format(val);
 }
@@ -48,7 +52,7 @@ Usage:
 
 ${program.includes(SPACE) ? enclose(program) : program} ${
         script.includes(SPACE) ? enclose(script) : script
-    } NON_MANDATORY_OPTIONS FILE
+    }       NON_MANDATORY_OPTIONS       FILE
 
 NON_MANDATORY_OPTIONS, one or more of following:
 ${OPTIONS["byte"]}      to output number of bytes in FILE
@@ -89,7 +93,7 @@ if (argsLength < 2) {
 length of arguments should be at least 2,
 however currnet arguments length is {argsLength},
 process.argv = {args}`);
-    process.exit(1);
+    exit(ERROR_EXIT);
 }
 
 log();
@@ -100,5 +104,31 @@ log();
 /* no file name */
 if (argsLength === 2) {
     printHelp();
-    process.exit(ERROR_EXIT);
+    exit(ERROR_EXIT);
+}
+
+/* file name available; but empty options */
+if (argsLength === 3) {
+    /* last argument is the file name */
+    fileName = args.at(-1);
+    userOptions = [
+        OPTIONS.help,
+        OPTIONS.debug,
+        OPTIONS.byte,
+        OPTIONS.line,
+        OPTIONS.word,
+        OPTIONS["multi-byte"],
+    ];
+} else if (argsLength >= 4) {
+    /* 3rd to (last - 1) elements are OPTIONS
+    last is file name */
+
+    fileName = args.at(-1);
+    userOptions = args.slice(2, -1);
+
+    /* convert all user options to lower case */
+    userOptions = userOptions.map((str) => str.toLowerCase());
+
+    /* ignore whitespace sequences */
+    userOptions = userOptions.filter((str) => /\s+/.test(str) === false);
 }
