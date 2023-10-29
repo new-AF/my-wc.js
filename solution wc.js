@@ -17,32 +17,39 @@ let options;
 let fileName;
 let text;
 let buffer;
+const SPACE = " ";
+const OPTIONS = {
+    byte: "-c",
+    line: "-l",
+    word: "-w",
+    "multi-byte": "-m",
+    debug: "-debug",
+    help: "-help",
+};
+
+function enclose(str) {
+    return '"' + str + '"';
+}
 
 function printHelp() {
     const [program, script] = args;
-    const space = " ";
-
-    function enclose(str) {
-        return '"' + str + '"';
-    }
 
     log(`*** My wc whitespace utility help ***
 
 Usage:
 
-${program.includes(space) ? enclose(program) : program} ${
-        script.includes(space) ? enclose(script) : script
+${program.includes(SPACE) ? enclose(program) : program} ${
+        script.includes(SPACE) ? enclose(script) : script
     } NON_MANDATORY_OPTIONS FILE
 
 NON_MANDATORY_OPTIONS, one or more of following:
-
--c      to output number of bytes in FILE
--l      to output number of lines in FILE
--w      to output number of words in FILE
--m      to outputs number of \\u0000-\\uFFFF
+${OPTIONS["byte"]}      to output number of bytes in FILE
+${OPTIONS["line"]}      to output number of lines in FILE
+${OPTIONS["word"]}      to output number of words in FILE
+${OPTIONS["multi-byte"]}      to outputs number of \\u0000-\\uFFFF
         unicode characters in FILE
--debug  to outuput developmmnt debug information
--help   to print this help information
+${OPTIONS["debug"]}  to outuput developmmnt debug information
+${options["help"]}   to print this help information
 
 FILE, can be either
 
@@ -133,7 +140,14 @@ if (argsLength === 2) {
 if (argsLength === 3) {
     /* the last argument is the file name */
     fileName = args.at(-1);
-    options = ["-help", "-debug", "-c", "-l", "-w", "-m"];
+    options = [
+        OPTIONS.help,
+        OPTIONS.debug,
+        OPTIONS.byte,
+        OPTIONS.line,
+        OPTIONS.word,
+        OPTIONS["multi-byte"],
+    ];
 } else if (argsLength >= 4) {
     /* file name and other options available */
     /* ignore 1st and 2nd arguments;
@@ -153,21 +167,39 @@ if (options.includes("-help")) {
 
 if (options.includes("-debug")) {
     printDebug();
-    options = options.concat(["-c", "-l", "-w", "-m"]);
+    options = options.concat([
+        OPTIONS.byte,
+        OPTIONS.line,
+        OPTIONS.word,
+        OPTIONS["multi-byte"],
+    ]);
 }
 
-if (options.includes("-c")) {
-    log("(-c) byte count:", getByteCount());
+/* print file name */
+if (
+    options.includes(OPTIONS.byte) ||
+    options.includes(OPTIONS.line) ||
+    options.includes(OPTIONS.word) ||
+    options.includes(OPTIONS["multi-byte"])
+) {
+    log(fileName.includes(SPACE) ? enclose(fileName) : fileName);
 }
 
-if (options.includes("-l")) {
-    log("(-l) line count:", getLineCount());
+if (options.includes(OPTIONS.byte)) {
+    log(`(${OPTIONS.byte}) byte count:`, getByteCount());
 }
 
-if (options.includes("-w")) {
-    log("(-w) word count:", getWordCount());
+if (options.includes(OPTIONS.line)) {
+    log(`(${OPTIONS.line}) line count:`, getLineCount());
 }
 
-if (options.includes("-m")) {
-    log("(-m) multi-byte characters:", getMultibyteCharacterCount());
+if (options.includes(OPTIONS.word)) {
+    log(`(${OPTIONS.word}) word count:`, getWordCount());
+}
+
+if (options.includes(OPTIONS["multi-byte"])) {
+    log(
+        `(${OPTIONS["multi-byte"]}) multi-byte characters:`,
+        getMultibyteCharacterCount()
+    );
 }
