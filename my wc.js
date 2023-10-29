@@ -149,3 +149,36 @@ function initText() {
     initBuffer();
     text = buffer.toString("utf8");
 }
+
+/* get byte count */
+function getByteCount() {
+    initBuffer();
+    return buffer.length;
+}
+
+/* get line count */
+function getLineCount() {
+    initText();
+
+    const matches = text.match(/\n/g);
+    /* matches.length + 1 ? */
+    return matches === null ? 0 : matches.length;
+}
+
+/* get word count */
+function getWordCount() {
+    initText();
+
+    /* any sequence of non-whitespace characters */
+    const matches = text.match(/\S+/g);
+    return matches === null ? 0 : matches.length;
+}
+
+/* get multi-byte characters */
+function getMultibyteCharacterCount() {
+    initText();
+
+    /* (not all) multibyte characters */
+    const matches = text.match(/[\u0000-\uffff]/g);
+    return matches === null ? 0 : matches.length;
+}
