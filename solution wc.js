@@ -105,7 +105,7 @@ if (argsLength === 2) {
 if (argsLength === 3) {
     /* the last argument is the file name */
     fileName = args.at(-1);
-    options = ["-c", "-l", "-w", "-m"];
+    options = ["-help", "-debug", "-c", "-l", "-w", "-m"];
 } else if (argsLength >= 4) {
     /* file name and other options available */
     /* ignore 1st and 2nd arguments;
