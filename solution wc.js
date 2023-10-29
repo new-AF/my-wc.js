@@ -89,14 +89,14 @@ system error */
 if (argsLength < 2) {
     console.log(`System Error related to handling command line arguments,
 length of arguments should be at least 2,
-however currnet arguments length is {argsLength}
+however currnet arguments length is {argsLength},
 process.argv = {args}`);
     process.exit(1);
 }
 /* no file name */
 if (argsLength === 2) {
     printHelp();
-    process.exit(1);
+    process.exit(0);
 }
 
 /* file name available */
