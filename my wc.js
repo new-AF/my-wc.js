@@ -182,3 +182,11 @@ function getMultibyteCharacterCount() {
     const matches = text.match(/[\u0000-\uffff]/g);
     return matches === null ? 0 : matches.length;
 }
+
+/* parse user options */
+
+/* no file name */
+if (argsLength === 2) {
+    printHelp();
+    exit(ERROR_EXIT);
+}
